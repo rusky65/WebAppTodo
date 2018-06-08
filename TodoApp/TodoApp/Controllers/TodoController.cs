@@ -7,22 +7,22 @@ using TodoApp.Models;
 
 namespace TodoApp.Controllers {
     public class TodoController : Controller {
-        private List<TodoItem> listToBuy = new List<TodoItem>() {
-            new TodoItem() { name = "salt", done = true },
-            new TodoItem() { name = "candy", done = false },
-            new TodoItem() { name = "spaghetti", done = true },
-            new TodoItem() { name = "beef", done = false },
-            new TodoItem() { name = "tomato", done = false }
-            };
 
         public ActionResult Index() {
-            return View(listToBuy);
+            return View(MyDb.listToBuy);
         }
 
-        public ActionResult Create(string Name) {
+        [HttpGet]
+        public ActionResult Create() {
 
-            if (!string.IsNullOrEmpty(Name)) {
-                listToBuy.Add(new TodoItem() { name = Name, done = true });
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(string name, bool isDone ) {
+
+            if (!string.IsNullOrEmpty(name)) {
+                MyDb.listToBuy.Add(new TodoItem() { Name = name, Done = isDone });
 
                 return RedirectToAction("Index");
             }

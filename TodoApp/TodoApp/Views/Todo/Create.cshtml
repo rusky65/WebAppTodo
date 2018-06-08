@@ -5,10 +5,13 @@
 
 <h2>Create</h2>
 
-<form>
-    <input name="Name" />
-    <input type="submit" value="Mentés" />
-    <button>Mentés</button>
+<form method="post">
+    <input name="Name">
+    @*@<input name="isDone" type="checkbox" value="true">*@
+    @Html.CheckBox("isDone")
+
+    <input type="submit" value="Save" />
+    <button>Save</button>
 </form>
 
-@Html.ActionLink("Rögzítés", "Index")
+@Html.ActionLink("Cancel", "Index")

@@ -9,13 +9,13 @@
 
 <ol>
     @foreach(var item in Model) {
-        if (@item.done) {
-            <li><strike>@item.name</strike></li>
+        if (@item.Done) {
+            <li><strike>@item.Name</strike></li>
         } else {
-            <li>@item.name</li>
+            <li>@item.Name</li>
         }
     }
 </ol>
 
-<a href="/Todo/Create">Új felvétele</a>
-@Html.ActionLink("Új felvétele", "Create")
+<a href="/Todo/Create">New item</a>
+@Html.ActionLink("New item", "Create")

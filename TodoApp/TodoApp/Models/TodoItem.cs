@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TodoApp.Models {
     public class TodoItem {
-        public bool done { get; internal set; }
-        public string name { get; internal set; }
+        public bool Done { get; internal set; }
+        public string Name { get; internal set; }
     }
 }
