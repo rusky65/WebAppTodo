@@ -166,6 +166,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Todo\Index.cshtml" />
     <Content Include="Views\Todo\Create.cshtml" />
+    <Content Include="Views\Todo\Edit.cshtml" />
+    <Content Include="Views\Todo\Delete.cshtml" />
+    <Content Include="Views\Todo\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

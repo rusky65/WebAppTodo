@@ -7,15 +7,21 @@
 
 <h2>TodoList</h2>
 
+@Html.ActionLink("New item", "Create")
+
 <ol>
-    @foreach(var item in Model) {
-        if (@item.Done) {
-            <li><strike>@item.Name</strike></li>
+    @foreach(var todoItem in Model) {
+        if (@todoItem.Done) {
+            <li><strike>@Html.ActionLink(todoItem.Name, "Details", new { todoItem.Id })</strike> @Html.ActionLink("Edit", "Edit", new { id = todoItem.Id }) @Html.ActionLink("Delete", "Delete", new { id = todoItem.Id }) </li>
         } else {
-            <li>@item.Name</li>
+            <li>@Html.ActionLink(todoItem.Name, "Details", new { todoItem.Id }) @Html.ActionLink("Edit", "Edit", new { id = todoItem.Id }) @Html.ActionLink("Delete", "Delete", new { id = todoItem.Id })</li>
         }
     }
 </ol>
 
-<a href="/Todo/Create">New item</a>
-@Html.ActionLink("New item", "Create")
+@using (Html.BeginForm("Create", "Todo")) {
+    
+    @Html.TextBox("name")
+    @Html.CheckBox("done")
+    <button>Save</button>
+}
