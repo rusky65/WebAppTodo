@@ -8,8 +8,10 @@ using TodoApp.Models;
 namespace TodoApp.Controllers {
     public class TodoController : Controller {
 
+        Db db = new Db();
+
         public ActionResult Index() {
-            return View(MyDb.listToBuy);
+            return View(db.TodoItems.ToList());
         }
 
         [HttpGet]
@@ -22,8 +24,10 @@ namespace TodoApp.Controllers {
         public ActionResult Create(string name, bool done ) {
 
             if (!string.IsNullOrEmpty(name)) {
-                var maxId = MyDb.listToBuy.Max(x => x.Id);
-                MyDb.listToBuy.Add(new TodoItem() { Id = maxId +1, Name = name, Done = done });
+                db.TodoItems.Add(new TodoItem() { Name = name, Done = done });
+
+                //to save changes into database have to call the "SaveChanges()"
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -43,7 +47,7 @@ namespace TodoApp.Controllers {
             //this is a filtered list
             //MyDb.listToBuy.Where(x=>x.Id==id);
 
-            var item = MyDb.listToBuy.Single(x => x.Id == id);
+            var item = db.TodoItems.Single(x => x.Id == id);
 
             // if we confused to get the exact item. item can get the null value.
             //var item = MyDb.listToBuy.SingleOrDefault(x => x.Id == id);
@@ -53,29 +57,35 @@ namespace TodoApp.Controllers {
 
         [HttpPost]
         public ActionResult Edit(int id, string name, bool done) {
-            var item = MyDb.listToBuy.Single(x => x.Id == id);
+            var item = db.TodoItems.Single(x => x.Id == id);
             item.Name = name;
             item.Done = done;
+
+            //to save changes into database have to call the "SaveChanges()"
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Delete (int id) {
-            var item = MyDb.listToBuy.Single(x => x.Id == id);
+            var item = db.TodoItems.Single(x => x.Id == id);
             return View(item);
         }
 
         [HttpPost]
         public ActionResult DeleteConfirmed(int id) {
-            var item = MyDb.listToBuy.Single(x => x.Id == id);
-            MyDb.listToBuy.Remove(item);
+            var item = db.TodoItems.Single(x => x.Id == id);
+            db.TodoItems.Remove(item);
+
+            //to save changes into database have to call the "SaveChanges()"
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(int id) {
-            var item = MyDb.listToBuy.Single(x => x.Id == id);
+            var item = db.TodoItems.Single(x => x.Id == id);
 
             return View(item);
         }
